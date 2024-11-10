@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,7 +16,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 45em;
             color: #333;
         }
         .container {
@@ -30,14 +30,12 @@
             font-size: 1.5rem;
             margin-bottom: 20px;
         }
-        .countdown {
-            font-size: 2rem;
-            color: #ff6347;
-        }
         footer {
             margin-top: 40px;
             font-size: 1rem;
             color: #999;
+            position: absolute;
+            bottom: 1em;
         }
         .funny-message {
             margin-top: 30px;
@@ -50,37 +48,11 @@
 <div class="container">
     <h1>Coming Soon</h1>
     <p>Get ready for something amazing...</p>
-<!--     <div class="countdown" id="countdown">Launching in: 946 years</div> -->
-    <div class="funny-message">P.S. Don’t hold your breath. May take a little while :)</div>
-    <footer>
-        &copy; 2024 Yasin Cepnioglu. All rights reserved.
-    </footer>
+    <div class="funny-message">P.S. Don’t hold your breath. This may take a little while...</div>
+
 </div>
-
-<!-- <script>
-    // Countdown logic for about a thousand years from now(17Sep2024).
-    const countdownElement = document.getElementById('countdown');
-    const launchDate = new Date("September 17, 3000 00:00:00").getTime();
-
-    function updateCountdown() {
-        const now = new Date().getTime();
-        const timeDiff = launchDate - now;
-
-        const years = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 365));
-        const days = Math.floor((timeDiff % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-
-        countdownElement.innerHTML = `Launching in: ${years} years, ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
-
-        if (timeDiff < 0) {
-            clearInterval(countdownInterval);
-            countdownElement.innerHTML = "Launched! ( just kidding! :D )";
-        }
-    }
-
-    const countdownInterval = setInterval(updateCountdown, 1000);
-</script> -->
+<footer>
+    &copy; 2024 Yasin Cepnioglu. All rights reserved.
+</footer>
 </body>
 </html>

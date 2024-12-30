@@ -1,15 +1,67 @@
-/* You can add global styles to this file, and also import other style files */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@use '@angular/material' as mat;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+// @include mat.core();
+
+
+html {
+  color-scheme: light dark;
+  @include mat.theme((
+    color: mat.$violet-palette,
+    typography: Roboto,
+    density: 0
+  ));
 }
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 45em;
-  color: #333;
-}
+
+// @use '@angular/material' as mat;
+
+
+// // Define a dark theme
+// $dark-theme: mat.define-dark-theme((
+//   color: (
+//     primary: mat.define-palette(mat.$indigo-palette),
+//     accent: mat.define-palette(mat.$blue-grey-palette),
+//     warn: mat.define-palette(mat.$red-palette)
+//   ),
+//   // Only include `typography` and `density` in the default dark theme.
+//   //typography: mat.define-typography-config(),
+//   density: 0,
+// ));
+
+// // Define a light theme
+// $light-theme: mat.define-light-theme((
+//   color: (
+//     primary: mat.define-palette(mat.$indigo-palette),
+//     accent: mat.define-palette(mat.$blue-grey-palette),
+//   ),
+// ));
+
+// // Apply the dark theme by default
+// @include mat.core-theme($dark-theme);
+// @include mat.button-theme($dark-theme);
+// @include mat.toolbar-theme($dark-theme);
+// @include mat.icon-theme($dark-theme);
+// @include mat.menu-theme($dark-theme);
+
+// // Apply the light theme only when the user prefers light themes.
+// @media (prefers-color-scheme: light) {
+//   // Use the `-color` mixins to only apply color styles without reapplying the same
+//   // typography and density styles.
+//   @include mat.core-color($light-theme);
+//   @include mat.button-color($light-theme);
+//   @include mat.toolbar-color($light-theme);
+//   @include mat.menu-color($light-theme);
+// }
+
+// html, body { height: 100%; }
+
+// body {
+//   margin: 0;
+//   font-family:Montserrat, Roboto, "Helvetica Neue", sans-serif;
+// }
+
+// .mat-toolbar {
+//   display: flex;
+//   justify-content: space-between;
+//   height: 3.5em;
+// }

@@ -1,0 +1,32 @@
+.contents {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  text-align: center;
+}
+
+h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.footer {
+  margin-top: 40px;
+  font-size: 1rem;
+  color: #999;
+  position: absolute;
+  bottom: 1em;
+}
+
+.message {
+  margin-top: 30px;
+  font-size: 1.2rem;
+  color: #888;
+}

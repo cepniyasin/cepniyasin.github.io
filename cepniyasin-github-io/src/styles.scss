@@ -1,8 +1,15 @@
 @use '@angular/material' as mat;
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-// @include mat.core();
 
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Montserrat, Roboto, "Helvetica Neue", sans-serif;
+}
 
 html {
   color-scheme: light dark;
@@ -12,6 +19,13 @@ html {
     density: 0
   ));
 }
+
+.mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  height: 3.5em;
+}
+
 
 // @use '@angular/material' as mat;
 
@@ -51,17 +65,4 @@ html {
 //   @include mat.button-color($light-theme);
 //   @include mat.toolbar-color($light-theme);
 //   @include mat.menu-color($light-theme);
-// }
-
-// html, body { height: 100%; }
-
-// body {
-//   margin: 0;
-//   font-family:Montserrat, Roboto, "Helvetica Neue", sans-serif;
-// }
-
-// .mat-toolbar {
-//   display: flex;
-//   justify-content: space-between;
-//   height: 3.5em;
 // }

@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 @use "../_theme-colors.scss" as theme-colors;
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
-
+@import "ol/ol.css";
 
 html, body {
   height: 100%;

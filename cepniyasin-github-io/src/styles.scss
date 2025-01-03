@@ -1,15 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@use '@angular/material' as mat;
+@use "../_theme-colors.scss" as theme-colors;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import "ol/ol.css";
+
+html, body {
+  height: 100%;
 }
+
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 45em;
-  color: #333;
+  margin: 0;
+  background: var(--mat-sys-background);
+}
+
+html {
+  @include mat.theme((
+    color: (
+      primary: theme-colors.$primary-palette,
+      theme-type: dark
+    ),
+    typography: (Montserrat, Roboto, "Helvetica Neue", sans-serif),
+    density: -2
+  ));
+}
+
+p {
+  font-family: var(--mat-sys-body-medium-font), serif;
 }

@@ -1,0 +1,25 @@
+.map-container {
+  position: absolute;
+  width: 100%;
+  top: 4.5em;
+  bottom: 4.5em;
+}
+
+.icon-container {
+  position: absolute;
+  bottom: 4em;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background: rgb(63 81 181 / 41%);
+  z-index: 10;
+}
+
+//::ng-deep // ??
+//.icon-container .map-icon:hover {
+//  cursor: pointer;
+//  transform: translateY(-5px) scale(1.3);
+//}

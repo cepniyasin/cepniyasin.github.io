@@ -1,8 +1,6 @@
 .map-container {
   position: absolute;
   width: 100%;
-  // height: 100%; TODO: delete later
-  // max-height: -webkit-fill-available;
   top: 3.5em;
   bottom: 3.5em;
 }
@@ -20,8 +18,8 @@
   z-index: 10;
 }
 
-::ng-deep
-.icon-container .map-icon:hover {
-  cursor: pointer;
-  transform: translateY(-5px) scale(1.3);
-}
+//::ng-deep // ??
+//.icon-container .map-icon:hover {
+//  cursor: pointer;
+//  transform: translateY(-5px) scale(1.3);
+//}

@@ -11,11 +11,12 @@ import {Icon, Style} from "ol/style";
 import {Feature, Overlay} from "ol";
 import {FeatureLike} from "ol/Feature";
 import {MultiPoint} from "ol/geom";
+import {Observable, of} from 'rxjs';
 
 enum IconCode {
   'ME' = 0,
-  'WORK'=1,
-  'SCHOOL'=2
+  'WORK' = 1,
+  'SCHOOL' = 2
 }
 
 @Component({
@@ -27,7 +28,7 @@ enum IconCode {
 })
 export class MapComponent implements AfterViewInit, OnDestroy {
   @ViewChild('mapElement') mapElement!: ElementRef;
-  @ViewChild('iconContainer', { static: true }) iconContainer!: ElementRef;
+  @ViewChild('iconContainer', {static: true}) iconContainer!: ElementRef;
 
   map!: Map;
   mapCenter: Coordinate = [20.26216352, 63.8245844] // Umeå
@@ -37,15 +38,16 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private geoserverService: GeoserverService
-  ) { }
+  ) {
+  }
 
   ngAfterViewInit(): void {
     this.initMap();
     this.map.on("click", function (e) {
         console.log(e.originalEvent)
-      // const pixel = this.map.getEventPixel(e.originalEvent);
-      // const hit = map.hasFeatureAtPixel(pixel);
-      // map.getTarget().style.cursor = hit ? 'pointer' : '';
+        // const pixel = this.map.getEventPixel(e.originalEvent);
+        // const hit = map.hasFeatureAtPixel(pixel);
+        // map.getTarget().style.cursor = hit ? 'pointer' : '';
       }
     )
     this.loadGeoJSONData();
@@ -65,6 +67,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     let coastlines = this.geoserverService.getTileLayer('ne:coastlines');
     let aboutMe = this.geoserverService.getTileLayer('personalsite:aboutMe');
 
+
+
     useGeographic()
     this.map = new Map({
       target: this.mapElement.nativeElement,
@@ -77,19 +81,105 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       ],
       view: new View({
         center: this.mapCenter,
-        zoom: this.startingZoomLevel
+        zoom: this.startingZoomLevel,
       }),
     });
     this.map.on('moveend', this.updateOverlayVisibility.bind(this));
   }
 
   loadGeoJSONData(): void {
-    this.geoserverService.getGeoJSON(
-      'aboutMe',
-      "personalsite",
-      "http://personalsite",
-      'EPSG:4326'
-    ).subscribe((data) => {
+    let properties = this.map.getProperties();
+
+    console.log(properties)
+
+    const placeholderWfsObservable: Observable<any> = of(
+      {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "id": "aboutMe.1",
+            "geometry": {
+              "type": "MultiPoint",
+              "coordinates": [
+                [
+                  20.2635,
+                  63.8260
+                ]
+              ]
+            },
+            "geometry_name": "the_geom",
+            "properties": {
+              "id": 0,
+              "desc": "This is the beautiful city of Ume�. Where I call home <3",
+              "icon": 0,
+              "title": "Here I am!"
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "aboutMe.2",
+            "geometry": {
+              "type": "MultiPoint",
+              "coordinates": [
+                [
+                  20.26039308,
+                  63.82549091
+                ]
+              ]
+            },
+            "geometry_name": "the_geom",
+            "properties": {
+              "id": 1,
+              "desc": "This is where I work since 2022. It is an amazing IT company with GIS in focus.",
+              "icon": 1,
+              "title": "Metria"
+            }
+          },
+          {
+            "type": "Feature",
+            "id": "aboutMe.3",
+            "geometry": {
+              "type": "MultiPoint",
+              "coordinates": [
+                [
+                  20.30418411,
+                  63.82171411
+                ]
+              ]
+            },
+            "geometry_name": "the_geom",
+            "properties": {
+              "id": 4,
+              "desc": "My school",
+              "icon": 2,
+              "title": "Umea University"
+            }
+          }
+        ],
+        "totalFeatures": 3,
+        "numberMatched": 3,
+        "numberReturned": 3,
+        "timeStamp": "2025-01-03T13:21:39.261Z",
+        "crs": {
+          "type": "name",
+          "properties": {
+            "name": "urn:ogc:def:crs:EPSG::4326"
+          }
+        }
+      }
+    );
+
+    // this.geoserverService.getGeoJSON(
+    //   'aboutMe',
+    //   "personalsite",
+    //   "http://personalsite",
+    //   'EPSG:4326'
+    // )
+
+      placeholderWfsObservable
+
+        .subscribe((data) => {
       let features = new GeoJSON().readFeatures(data);
       features.forEach(feature=>{
         this.multipointToMarker(feature);
@@ -122,6 +212,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     }
 
     let marker = this.createMarker(feature, iconUrl, size);
+
     this.map.addOverlay(marker);
     this.overlays.push({overlay: marker, minZoom: minZoom, maxZoom: 99});
   }
@@ -135,13 +226,13 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         (zoom < overlay.minZoom || zoom > overlay.maxZoom)
       ) {
         element.style.display = 'none';
-      } else if (element != undefined){
+      } else if (element != undefined) {
         element.style.display = 'block';
       }
     });
   }
 
-  createMarker(feature: FeatureLike, iconUrl: string, size: number=100): Overlay {
+  createMarker(feature: FeatureLike, iconUrl: string, size: number = 100): Overlay {
     let coord;
     let properties = feature.getProperties();
     let multipoint = properties["geometry"] as MultiPoint;
@@ -154,8 +245,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     markerElement.style.backgroundImage = `url(${iconUrl})`;
     markerElement.style.backgroundRepeat = 'no-repeat';
     markerElement.style.backgroundPosition = 'center';
-    markerElement.style.height = size+"px";
-    markerElement.style.width = size+"px";
+    markerElement.style.height = size + "px";
+    markerElement.style.width = size + "px";
     markerElement.style.backgroundSize = "cover";
 
     return new Overlay({
@@ -177,9 +268,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   }
 
   zoomToLocation(coordinate: Coordinate | undefined, zoomLevel: number): void {
-    // console.log("coordinate")
-    // console.log(coordinate)
-    if(coordinate != undefined){
+    if (coordinate != undefined) {
       this.map.getView().animate({
         center: coordinate,
         zoom: zoomLevel,
@@ -222,7 +311,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       iconElement.style.margin = '5px';
 
       iconElement.addEventListener('click', () => {
-        console.log(id);
+        // console.log(id);
         this.zoomToLocation(this.getMarkerCoordinates(id), 16)
       });
 
@@ -256,5 +345,4 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       }
     });
   }
-
 }

@@ -1,11 +1,10 @@
 .about-me-card {
   max-width: 800px;
-  margin: 5em auto auto;
+  margin: 5em auto 5em auto;
   padding: 1rem;
   color: var(--mat-sys-on-surface);
 
   mat-card-header {
-    //border-bottom: 1px solid #ccc;
     margin-bottom: 1rem;
   }
 
